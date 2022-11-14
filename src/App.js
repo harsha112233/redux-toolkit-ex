@@ -1,56 +1,43 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
 import './App.css';
+import { increment, decrement } from './store/countSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchPost, getPost } from './store/postSlice';
+import axios from 'axios';
+
 
 function App() {
+  const dispatch = useDispatch()
+  const countValue = useSelector((state) => state.count);
+  const postData = useSelector((state) =>state.post);
+
+
+
+  // console.log("postData", postData)
+
+  const getData = () => {
+
+    dispatch(fetchPost())
+  }
+ 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+
+      <h1>{countValue}</h1>
+
+      <button onClick={() => dispatch(increment())}>increment</button>
+      <button onClick={() => dispatch(decrement())}>decrement</button>
+
+      <hr />
+
+      <button onClick={() => getData()}>getData</button>
+      {
+        postData?.map((post)=>{
+        console.log("post", post)
+          return <h6>{post.title}</h6>
+        })
+      }
+     
     </div>
   );
 }
