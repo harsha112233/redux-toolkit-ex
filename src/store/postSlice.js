@@ -21,7 +21,7 @@ export const { getPost, addPost } = postslice.actions
 export default postslice.reducer
 
 export function fetchPost() {
-    return async dispatch => {
+    return async function (dispatch) {
 
         try {
             const res = await axios.get("https://jsonplaceholder.typicode.com/posts")
