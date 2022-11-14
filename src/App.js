@@ -3,23 +3,19 @@ import './App.css';
 import { increment, decrement } from './store/countSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPost, getPost } from './store/postSlice';
-import axios from 'axios';
+
 
 
 function App() {
   const dispatch = useDispatch()
   const countValue = useSelector((state) => state.count);
-  const postData = useSelector((state) =>state.post);
-
-
-
-  // console.log("postData", postData)
+  const postData = useSelector((state) => state.post);
 
   const getData = () => {
 
     dispatch(fetchPost())
   }
- 
+
   return (
     <div className="App">
 
@@ -32,12 +28,11 @@ function App() {
 
       <button onClick={() => getData()}>getData</button>
       {
-        postData?.map((post)=>{
-        console.log("post", post)
+        postData?.map((post) => {
           return <h6>{post.title}</h6>
         })
       }
-     
+
     </div>
   );
 }
